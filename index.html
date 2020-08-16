@@ -44,10 +44,9 @@
     <script>
         const fetchData = async () => {
             const city = document.getElementById('inputValue').value;
-            fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2c3ec43ccf230e8e1e337e1fd489baa0&units=metric`)
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2c3ec43ccf230e8e1e337e1fd489baa0&units=metric`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 document.getElementById('icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` ;
                 document.getElementById('cityName').innerHTML = city;
                 document.getElementById('country').innerHTML = data.sys.country;
@@ -57,7 +56,7 @@
                 document.getElementById('real').innerHTML = data.main.feels_like;
                 document.getElementById('humidity').innerHTML = data.main.humidity;
                 document.getElementById('pressure').innerHTML = data.main.pressure;
-                document.getElementById('sunrise').innerHTML = data.sys.sunrise;
+                document.getElementById('sunrise').innerHTML = (data.sys.sunrise).toLocalString();
                 document.getElementById('sunset').innerHTML = data.sys.sunset;
             })
         }
