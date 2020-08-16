@@ -35,7 +35,6 @@
             <h3><span id="weather">Clouds</span>  -  <span id="description">Moderate breeze</span></h1>
             <h5>Real Feel <span id="real">40</span>&deg;C</h5>
             <h6>Humidity <span id="humidity">80</span>%      Pressure <span id="pressure">40</span> hPa</h6>
-            <h6>Sunrise: <span id="sunrise"></span>      Sunset: <span id="sunset"></span></h6>
         </div>
     </div>
 
@@ -56,8 +55,6 @@
                 document.getElementById('real').innerHTML = data.main.feels_like;
                 document.getElementById('humidity').innerHTML = data.main.humidity;
                 document.getElementById('pressure').innerHTML = data.main.pressure;
-                document.getElementById('sunrise').innerHTML = (data.sys.sunrise).toLocalString();
-                document.getElementById('sunset').innerHTML = data.sys.sunset;
             })
         }
         document.getElementById('btn').addEventListener('click', function(){
