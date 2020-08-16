@@ -19,6 +19,7 @@
 
 <body>
     <div class="container">
+        <h1 id="welcome" class="text-center display-6 text-white my-5">Welcome To Panda Weather</h1>
         <form class="col-md-6 m-auto py-5">
             <div class="input-group mb-3">
                 <input id="inputValue" type="text" class="form-control" placeholder="Enter a location for Weather ...">
@@ -34,6 +35,7 @@
             <h3><span id="weather">Clouds</span>  -  <span id="description">Moderate breeze</span></h1>
             <h5>Real Feel <span id="real">40</span>&deg;C</h5>
             <h6>Humidity <span id="humidity">80</span>%      Pressure <span id="pressure">40</span> hPa</h6>
+            <h6>Sunrise: <span id="sunrise"></span>      Sunset: <span id="sunset"></span></h6>
         </div>
     </div>
 
@@ -55,10 +57,13 @@
                 document.getElementById('real').innerHTML = data.main.feels_like;
                 document.getElementById('humidity').innerHTML = data.main.humidity;
                 document.getElementById('pressure').innerHTML = data.main.pressure;
+                document.getElementById('sunrise').innerHTML = data.sys.sunrise;
+                document.getElementById('sunset').innerHTML = data.sys.sunset;
             })
         }
         document.getElementById('btn').addEventListener('click', function(){
             fetchData();
+            document.getElementById('welcome').style.display = 'none';
             document.getElementById('info').style.display = 'block';
             document.getElementById('inputValue').value = '';
         })
