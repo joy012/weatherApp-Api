@@ -30,12 +30,13 @@
         </form>
         <div id="info" class="weather-status text-white text-center">
             <img id="icon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
-            <h1><span id="cityName">Dhaka</span>, <span id="country">BD</span></h1>
-            <h2><span id="temperature">38.06</span>&deg;C</h2>
-            <h3><span id="weather">Clouds</span>  -  <span id="description">Moderate breeze</span></h1>
-            <h5>Real Feel <span id="real">40</span>&deg;C</h5>
-            <h6>Humidity <span id="humidity">80</span>%      Pressure <span id="pressure">40</span> hPa</h6>
+            <h1><span id="cityName"></span>, <span id="country"></span></h1>
+            <h2><span id="temperature"></span>&deg;C</h2>
+            <h3><span id="weather"></span>  -  <span id="description"></span></h1>
+            <h5>Real Feel <span id="real"></span>&deg;C</h5>
+            <h6>Humidity <span id="humidity"></span>%      Pressure <span id="pressure"></span> hPa</h6>
         </div>
+        <div id="error-msg" class="text-white text-center"></div>
     </div>
 
 
@@ -46,22 +47,37 @@
             fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2c3ec43ccf230e8e1e337e1fd489baa0&units=metric`)
             .then(response => response.json())
             .then(data => {
-                document.getElementById('icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` ;
-                document.getElementById('cityName').innerHTML = city;
-                document.getElementById('country').innerHTML = data.sys.country;
-                document.getElementById('temperature').innerHTML = data.main.temp;
-                document.getElementById('weather').innerHTML = data.weather[0].main;
-                document.getElementById('description').innerHTML = data.weather[0].description;
-                document.getElementById('real').innerHTML = data.main.feels_like;
-                document.getElementById('humidity').innerHTML = data.main.humidity;
-                document.getElementById('pressure').innerHTML = data.main.pressure;
+                document.getElementById('inputValue').value = '';
+                if(data.weather){
+                    document.getElementById('error-msg').style.display = 'none';
+                    document.getElementById('icon').src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` ;
+                    document.getElementById('cityName').innerHTML = (city.split(',')[0]).toUpperCase();
+                    document.getElementById('country').innerHTML = data.sys.country;
+                    document.getElementById('temperature').innerHTML = data.main.temp;
+                    document.getElementById('weather').innerHTML = data.weather[0].main;
+                    document.getElementById('description').innerHTML = data.weather[0].description;
+                    document.getElementById('real').innerHTML = data.main.feels_like;
+                    document.getElementById('humidity').innerHTML = data.main.humidity;
+                    document.getElementById('pressure').innerHTML = data.main.pressure;
+
+                    document.getElementById('welcome').style.display = 'none';
+                    document.getElementById('info').style.display = 'block';
+                    document.getElementById('inputValue').value = '';
+                }
+                else{
+                    document.getElementById('welcome').style.display = 'none';
+                    document.getElementById('info').style.display = 'none';
+                    document.getElementById('error-msg').style.display = 'block';
+                    document.getElementById('error-msg').innerHTML = 
+                    `<h2 class="display-4">${(data.message.toUpperCase())} IN OUR DATABASE!</h2>
+                    <img class="w-25 h-25 rounded-circle d-block mx-auto" src="images/sorry.jpeg">`;
+                    
+                }
+                
             })
         }
         document.getElementById('btn').addEventListener('click', function(){
             fetchData();
-            document.getElementById('welcome').style.display = 'none';
-            document.getElementById('info').style.display = 'block';
-            document.getElementById('inputValue').value = '';
         })
     </script>
 </body>
